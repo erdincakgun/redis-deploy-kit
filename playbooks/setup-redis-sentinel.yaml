@@ -48,3 +48,19 @@
         name: redis-sentinel
         state: restarted
         enabled: true
+    - name: Populate service facts
+      service_facts:
+    - name: Disable firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: false
+      when: "'firewalld' in services"
+    - name: Disable SELinux
+      ansible.posix.selinux:
+        state: disabled
+      register: selinux_result
+    - name: Reboot if SELinux was changed
+      ansible.builtin.reboot:
+        reboot_timeout: 300
+      when: selinux_result.changed
