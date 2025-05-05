@@ -21,7 +21,7 @@
       prompt: Ansible SSH Password
       private: true
     - name: redis_password
-      prompt: Redis password
+      prompt: Redis Password
       private: true
   vars:
     host_ips:
