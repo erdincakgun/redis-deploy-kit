@@ -14,15 +14,7 @@
     - name: redis_password
       prompt: Redis Password
       private: true
-  vars:
-    host_ips:
-      redis_primary: "{{ redis_primary_ip }}"
-      redis_secondary: "{{ redis_secondary_ip }}"
-      redis_tertiary: "{{ redis_tertiary_ip }}"
   tasks:
-    - name: Set ansible_host
-      set_fact:
-        ansible_host: "{{ host_ips[inventory_hostname] }}"
     - name: Install packages - 1
       dnf:
         name:
