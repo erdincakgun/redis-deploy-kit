@@ -1,0 +1,59 @@
+- name: Setup Redis Sentinel
+  hosts: redis_servers
+  become: true
+  vars_prompt:
+    - name: redis_primary_ip
+      prompt: IP address for redis_primary
+      private: false
+    - name: redis_secondary_ip
+      prompt: IP address for redis_secondary
+      private: false
+    - name: redis_tertiary_ip
+      prompt: IP address for redis_tertiary
+      private: false
+    - name: ansible_user
+      prompt: Ansible User
+      private: false
+    - name: ansible_ssh_private_key_file
+      prompt: Ansible SSH Private Key File
+      private: false
+    - name: ansible_ssh_pass
+      prompt: Ansible SSH Password
+      private: true
+    - name: redis_password
+      prompt: Redis password
+      private: true
+  tasks:
+    - name: Install packages - 1
+      dnf:
+        name:
+          - epel-release
+          - https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+        state: present
+        disable_gpg_check: true
+    - name: Install packages - 2
+      dnf:
+        name:
+          - '@redis:remi-7.2'
+        state: present
+        disable_gpg_check: true
+    - name: Template redis.conf
+      template:
+        src: ../templates/redis.conf.j2
+        dest: /etc/redis/redis.conf
+        backup: true
+    - name: Template sentinel.conf
+      template:
+        src: ../templates/sentinel.conf.j2
+        dest: /etc/redis/sentinel.conf
+        backup: true
+    - name: Enable redis service
+      systemd_service:
+        name: redis
+        state: restarted
+        enabled: true
+    - name: Enable redis-sentinel service
+      systemd_service:
+        name: redis-sentinel
+        state: restarted
+        enabled: true
