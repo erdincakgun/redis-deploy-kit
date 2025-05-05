@@ -1,0 +1,13 @@
+all:
+  vars:
+    ansible_python_interpreter: auto_silent
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+  children:
+    redis_servers:
+      hosts:
+        redis_primary:
+          ansible_host: 1.2.3.4
+        redis_secondary:
+          ansible_host: 1.2.3.4
+        redis_tertiary:
+          ansible_host: 1.2.3.4
