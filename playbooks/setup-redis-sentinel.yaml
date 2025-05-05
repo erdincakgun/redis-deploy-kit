@@ -2,15 +2,6 @@
   hosts: redis_servers
   become: true
   vars_prompt:
-    - name: redis_primary_ip
-      prompt: IP address for redis_primary
-      private: false
-    - name: redis_secondary_ip
-      prompt: IP address for redis_secondary
-      private: false
-    - name: redis_tertiary_ip
-      prompt: IP address for redis_tertiary
-      private: false
     - name: ansible_user
       prompt: Ansible User
       private: false
