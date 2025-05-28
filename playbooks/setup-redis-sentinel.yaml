@@ -16,6 +16,9 @@
     - name: redis_password
       prompt: Redis Password
       private: true
+    - name: redis_maxmemory
+      prompt: Redis Max Memory
+      private: false
   tasks:
     - name: Install packages - 1
       dnf:

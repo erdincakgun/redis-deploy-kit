@@ -1128,7 +1128,7 @@ requirepass {{ redis_password }}
 # limit for maxmemory so that there is some free RAM on the system for replica
 # output buffers (but this is not needed if the policy is 'noeviction').
 #
-# maxmemory <bytes>
+maxmemory {{ redis_maxmemory }}
 
 # MAXMEMORY POLICY: how Redis will select what to remove when maxmemory
 # is reached. You can select one from the following behaviors:
@@ -2095,7 +2095,7 @@ client-output-buffer-limit pubsub 32mb 8mb 60
 #
 # A memory value can be used for the client eviction threshold,
 # for example:
-maxmemory-clients 1g
+# maxmemory-clients 1g
 #
 # A percentage value (between 1% and 100%) means the client eviction threshold
 # is based on a percentage of the maxmemory setting. For example to set client
