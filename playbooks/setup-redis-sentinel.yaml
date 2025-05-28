@@ -1,6 +1,8 @@
 - name: Setup Redis Sentinel
   hosts: redis_servers
   become: true
+  roles:
+    - prometheus.prometheus.node_exporter
   vars_prompt:
     - name: ansible_user
       prompt: Ansible User
